@@ -1,0 +1,47 @@
+﻿@model IEnumerable<TestWebApp.Models.Job>
+
+@{
+    ViewBag.Title = "Задачи";
+}
+
+<h2>Задачи для: @ViewBag.ForName</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.IsCompleted)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Author)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DeadLine)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr style="@(item.DeadLine < DateTime.Now && !item.IsCompleted ? "color:red" : "")">
+        <td>
+            @Html.DisplayFor(modelItem => item.IsCompleted)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Author)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DeadLine)
+        </td>
+        <td>
+            @Html.ActionLink("Редактировать", "Edit", new { id=item.JobId }) |
+            @Html.ActionLink("Подробно", "Details", new { id=item.JobId }) |
+            @Html.ActionLink("Удалить", "Delete", new { id=item.JobId })
+        </td>
+    </tr>
+}
+</table>

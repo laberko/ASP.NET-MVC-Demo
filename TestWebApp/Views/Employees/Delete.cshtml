@@ -1,0 +1,37 @@
+﻿@model TestWebApp.Models.Employee
+
+@{
+    ViewBag.Title = "Удалить сотрудника";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<h3>Действительно удалить?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SecondName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SecondName)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        <div class="form-actions no-color">
+            <input type="submit" value="Удалить" class="btn btn-default" /> |
+            @Html.ActionLink("Назад", "Index")
+        </div>
+    }
+</div>

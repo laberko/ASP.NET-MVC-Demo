@@ -1,0 +1,53 @@
+﻿@model IEnumerable<TestWebApp.Models.Message>
+
+@{
+    ViewBag.Title = "Сообщения";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.From)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.To)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsRead)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model.OrderByDescending(m => m.Date)) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FromName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ToName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsRead)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.ActionLink("Редактировать", "Edit", new {id = item.MessageId}) |
+            @Html.ActionLink("Подробно", "Details", new {id = item.MessageId}) |
+            @Html.ActionLink("Удалить", "Delete", new {id = item.MessageId})
+        </td>
+    </tr>
+}
+</table>

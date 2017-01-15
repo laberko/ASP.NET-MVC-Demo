@@ -1,0 +1,43 @@
+﻿@using TestWebApp.Models
+@model IEnumerable<Employee>
+
+@{
+    ViewBag.Title = "Все сотрудники";
+}
+
+<h2>@ViewBag.Title</h2>
+<p>
+    @Html.ActionLink("Добавить", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SecondName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SecondName)
+        </td>
+
+        <td>
+            @Html.ActionLink("Редактировать", "Edit", new { id=item.UserId }) |
+            @Html.ActionLink("Подробно", "Details", new {id = item.UserId}) |
+            @Html.ActionLink("Создать сообщение", "Create", "Messages", new {id = item.UserId}, null) |
+            @Html.ActionLink("Входящие (" + item.Messages.Count + ")", "Index", "Messages", new {id = item.UserId, sent = false}, null) |
+            @Html.ActionLink("Отправленные (" + item.SentMessages.Count + ")", "Index", "Messages", new {id = item.UserId, sent = true}, null) |
+            @Html.ActionLink("Задачи (" + item.Jobs.Count + ")", "Index", "Jobs", new { id = item.UserId }, null) |
+            @Html.ActionLink("Удалить", "Delete", new { id=item.UserId })
+        </td>
+    </tr>
+}
+</table>

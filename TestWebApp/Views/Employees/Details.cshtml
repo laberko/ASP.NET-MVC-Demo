@@ -1,0 +1,91 @@
+﻿@using System.Globalization
+@model TestWebApp.Models.Employee
+
+@{
+    ViewBag.Title = "Подробно";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.UserId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SecondName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SecondName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Login)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Login)
+        </dd>
+
+        @if (Model.Manager != null)
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.Manager)
+            </dt>
+
+            <dd>
+                @Html.ActionLink(Model.Manager.FullName, "Details", new { id = Model.Manager.UserId })
+            </dd>
+        }
+
+        @if (Model.Managed.Count != 0)
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.Managed)
+            </dt>
+                <dd></dd>
+            foreach (var item in Model.Managed)
+            {
+                 <dt></dt>
+                 <dd>
+                     @Html.ActionLink(item.FullName, "Details", new { id = item.UserId })
+                 </dd>
+             }
+
+        }
+
+        @if (Model.Messages.Count != 0)
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.Messages)
+            </dt>
+            <dd></dd>
+            foreach (var item in Model.Messages.OrderByDescending(m => m.Date))
+            {
+                <dt></dt>
+                <dd>
+                    @Html.ActionLink(item.Date.ToString(CultureInfo.CurrentCulture) + " от: " + item.FromName, "Details", "Messages", new {id = item.MessageId}, null)
+                </dd>
+            }
+        }
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Изменить", "Edit", new { id = Model.UserId }) |
+    @Html.ActionLink("Все сотрудники", "Index")
+</p>
